@@ -49,4 +49,118 @@ class MainActivity : ComponentActivity() {
             "Lancia" to listOf("Delta integrale HF", "037")
         )
     )
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            Catalogo_CarsTheme {
+                AppUI(carrosPorPais)
+            }
+        }
+    }
+}
+
+
+@Composable
+fun AppUI(carrosPorPais: Map<String, Map<String, List<String>>>) {
+    var paisSelecionado by remember { mutableStateOf<String?>(null) }
+
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        horizontalAlignment = Alignment.CenterHorizontally
+    ) {
+        Box(modifier = Modifier.weight(1f)) {
+            // Imagem do mapa ajustada
+            Image(
+                painter = painterResource(R.drawable.mapa2),
+                contentDescription = "Mapa",
+                modifier = Modifier
+                    .fillMaxWidth() // A imagem ocupa toda a largura da tela
+                    .height(300.dp) // Definindo uma altura fixa para o mapa
+                    .padding(0.dp), // Sem margens extras
+                contentScale = ContentScale.Crop // Ajusta o mapa para cobrir a área sem distorcer
+            )
+
+            // Botões para escolher país
+            Column(
+                modifier = Modifier
+                    .align(Alignment.Center)
+                    .padding(16.dp),
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Button(
+                        onClick = { paisSelecionado = "Alemanha" },
+                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
+                    ) {
+                        Text("ALEMANHA", fontSize = 14.sp)
+                    }
+                    Button(
+                        onClick = { paisSelecionado = "Japão" },
+                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
+                    ) {
+                        Text("JAPÃO", fontSize = 14.sp)
+                    }
+                }
+                Row(
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    Button(
+                        onClick = { paisSelecionado = "EUA" },
+                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
+                    ) {
+                        Text("EUA", fontSize = 14.sp)
+                    }
+                    Button(
+                        onClick = { paisSelecionado = "Itália" },
+                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
+                    ) {
+                        Text("ITÁLIA", fontSize = 14.sp)
+                    }
+                }
+            }
+        }
+
+        // Exibe os carros do país selecionado
+        paisSelecionado?.let { pais ->
+            val marcas = carrosPorPais[pais]
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(250.dp)
+                    .background(Color.White.copy(alpha = 0.9f))
+                    .padding(8.dp)
+                    .verticalScroll(rememberScrollState())
+            ) {
+                marcas?.forEach { (marca, modelos) ->
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(8.dp),
+                        horizontalArrangement = Arrangement.SpaceAround,
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        val logoId = remember(marca) {
+                            val nome = marca.lowercase().replace(" ", "").replace("-", "")
+                            R.drawable::class.java.getDeclaredField(nome).getInt(null)
+                        }
+                        Image(
+                            painter = painterResource(id = logoId),
+                            contentDescription = marca,
+                            modifier = Modifier.size(60.dp) // Logo menor
+                        )
+                        Text(
+                            text = modelos.joinToString("\n"),
+                            fontSize = 14.sp,
+                            textAlign = TextAlign.Start,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+                }
+            }
+        } ?: Text("Nenhum carro encontrado", color = Color.Gray)
+    }
 }
