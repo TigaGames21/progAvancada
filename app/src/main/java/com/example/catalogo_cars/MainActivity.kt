@@ -68,63 +68,63 @@ fun AppUI(carrosPorPais: Map<String, Map<String, List<String>>>) {
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Box(modifier = Modifier.weight(1f)) {
-            // Imagem do mapa ajustada
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(350.dp) // ajusta consoante o teu mapa
+        ) {
+            // Mapa centralizado
             Image(
                 painter = painterResource(R.drawable.mapa2),
                 contentDescription = "Mapa",
                 modifier = Modifier
-                    .fillMaxWidth() // A imagem ocupa toda a largura da tela
-                    .height(300.dp) // Definindo uma altura fixa para o mapa
-                    .padding(0.dp), // Sem margens extras
-                contentScale = ContentScale.Crop // Ajusta o mapa para cobrir a área sem distorcer
+                    .fillMaxSize(),
+
+                contentScale = ContentScale.Crop
+
             )
 
-            // Botões para escolher país
-            Column(
+            Button(
+                onClick = { paisSelecionado = "Alemanha" },
                 modifier = Modifier
-                    .align(Alignment.Center)
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .offset(x = 160.dp, y = 105.dp)
+                    .size(width = 64.dp, height = 30.dp),
+                contentPadding = PaddingValues(0.dp)
+                ) {
+                Text("DEU", fontSize = 8.sp)
+            }
+
+            Button(
+                onClick = { paisSelecionado = "Japão" },
+                modifier = Modifier
+                    .offset(x = 355.dp, y = 130.dp)
+                    .size(width = 64.dp, height = 30.dp),
+                contentPadding = PaddingValues(0.dp)
+                ) {
+                Text("JPN", fontSize = 8.sp)
+            }
+
+            Button(
+                onClick = { paisSelecionado = "EUA" },
+                modifier = Modifier
+                    .offset(x = 30.dp, y = 135.dp)
+                    .size(width = 60.dp, height = 30.dp),
+                contentPadding = PaddingValues(0.dp),
+                ) {
+                Text("EUA", fontSize = 8.sp)
+            }
+
+            Button(
+                onClick = { paisSelecionado = "Itália" },
+                modifier = Modifier
+                    .offset(x = 185.dp, y = 125.dp)
+                    .size(width = 64.dp, height = 30.dp),
+                contentPadding = PaddingValues(0.dp)
             ) {
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Button(
-                        onClick = { paisSelecionado = "Alemanha" },
-                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
-                    ) {
-                        Text("ALEMANHA", fontSize = 14.sp)
-                    }
-                    Button(
-                        onClick = { paisSelecionado = "Japão" },
-                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
-                    ) {
-                        Text("JAPÃO", fontSize = 14.sp)
-                    }
-                }
-                Row(
-                    horizontalArrangement = Arrangement.SpaceEvenly,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Button(
-                        onClick = { paisSelecionado = "EUA" },
-                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
-                    ) {
-                        Text("EUA", fontSize = 14.sp)
-                    }
-                    Button(
-                        onClick = { paisSelecionado = "Itália" },
-                        modifier = Modifier.padding(4.dp).height(50.dp).fillMaxWidth(0.4f)
-                    ) {
-                        Text("ITÁLIA", fontSize = 14.sp)
-                    }
-                }
+                Text("ITA", fontSize = 8.sp)
             }
         }
 
-        // Exibe os carros do país selecionado
         paisSelecionado?.let { pais ->
             val marcas = carrosPorPais[pais]
             Column(
@@ -150,7 +150,7 @@ fun AppUI(carrosPorPais: Map<String, Map<String, List<String>>>) {
                         Image(
                             painter = painterResource(id = logoId),
                             contentDescription = marca,
-                            modifier = Modifier.size(60.dp) // Logo menor
+                            modifier = Modifier.size(60.dp)
                         )
                         Text(
                             text = modelos.joinToString("\n"),
@@ -164,3 +164,4 @@ fun AppUI(carrosPorPais: Map<String, Map<String, List<String>>>) {
         } ?: Text("Nenhum carro encontrado", color = Color.Gray)
     }
 }
+
