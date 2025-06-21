@@ -1,28 +1,25 @@
-Tiago Margarido da Silva 1709436
-
-
 Catálogo Interativo de Carros por País
 
-Projeto desenvolvido no âmbito da unidade curricular de Programação Avançada do Instituto Politécnico da Guarda.
+Tiago Margarido da Silva – 1709436
+Instituto Politécnico da Guarda  
+Unidade Curricular: Programação Avançada  
+
+---
 
 Descrição
 
-Esta aplicação Android apresenta um mapa interativo com botões sobre alguns países. Ao clicar num botão correspondente a um país, o utilizador tem acesso às marcas de automóveis desse país e aos seus respetivos modelos.
+Esta aplicação Android apresenta um mapa interativo com botões sobre determinados países. Ao selecionar um país, o utilizador visualiza as principais marcas de automóveis desse país, bem como os seus modelos mais icónicos.
 
-O objetivo do projeto foi explorar os conceitos avançados de UI com Jetpack Compose, organização de dados com estruturas em Kotlin e interação com o utilizador através de eventos.
-
----
-
-Tecnologias e Ferramentas
-
-- Kotlin
-- Jetpack Compose
-- Android Studio
-- Material Design 3
-- Organização com `Map<String, Map<String, List<String>>>` para representar:
-  - País → Marca → Modelos
+O principal objetivo do projeto foi aplicar conhecimentos de UI avançada com Jetpack Compose, manipulação de estruturas de dados em Kotlin e interação dinâmica com o utilizador.
 
 ---
 
-Estrutura do Projeto
+Tecnologias e Ferramentas Utilizadas
+
+- Linguagem: Kotlin  
+- Interface Gráfica: Jetpack Compose (Material Design 3)  
+- IDE: Android Studio  
+- Estrutura de Dados:  
+  - `Map<String, Map<String, List<String>>>`, representando:  
+  - `País → Marca → Modelos`
 
